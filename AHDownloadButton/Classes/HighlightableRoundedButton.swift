@@ -13,7 +13,7 @@ final class HighlightableRoundedButton: UIButton {
     // MARK: Properties
     var strokeWidth: CGFloat = 0.0 {
         didSet {
-            layer.borderWidth = strokeWidth
+            updateColors()
         }
     }
     
@@ -77,9 +77,11 @@ final class HighlightableRoundedButton: UIButton {
     private func updateColors() {
         if let color = isHighlighted ? highlightedBackgroundStrokeColor : nonhighlightedBackgroundStrokeColor {
             layer.borderColor = color.cgColor
+            layer.borderWidth = strokeWidth
         }
         else {
             layer.borderColor = nil
+            layer.borderWidth = 0.0
         }
         backgroundColor = isHighlighted ? highlightedBackgroundColor : nonhighlightedBackgroundColor
         let titleColor = isHighlighted ? highlightedTitleColor : nonhighlightedTitleColor

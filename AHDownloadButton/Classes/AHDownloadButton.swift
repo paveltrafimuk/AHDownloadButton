@@ -459,10 +459,6 @@ public final class AHDownloadButton: UIView {
         downloadingButtonWidthConstraint.constant = width
         
         if automaticallySizeToFitTitle {
-            startDownloadButtonTitleWidth = width
-            downloadedButtonTitleWidth = width
-        }
-        else {
             if startDownloadButtonTitleWidth == 0 {
                 startDownloadButtonTitleWidth = startDownloadButton.titleWidth
             }
@@ -470,6 +466,10 @@ public final class AHDownloadButton: UIView {
             if downloadedButtonTitleWidth == 0 {
                 downloadedButtonTitleWidth = downloadedButton.titleWidth
             }
+        }
+        else {
+            startDownloadButtonTitleWidth = max(frame.width, frame.height)
+            downloadedButtonTitleWidth = max(frame.width, frame.height)
         }
     }
     
