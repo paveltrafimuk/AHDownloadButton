@@ -11,18 +11,36 @@ import UIKit
 final class HighlightableRoundedButton: UIButton {
     
     // MARK: Properties
+    var strokeWidth: CGFloat = 0.0 {
+        didSet {
+            layer.borderWidth = strokeWidth
+        }
+    }
+    
+    var highlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            updateColors()
+        }
+    }
     
     var highlightedBackgroundColor = Color.Gray.light {
         didSet {
             updateColors()
         }
     }
-    
+
+    var nonhighlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            updateColors()
+        }
+    }
+
     var nonhighlightedBackgroundColor = Color.Gray.medium {
         didSet {
             updateColors()
         }
     }
+    
     
     var highlightedTitleColor = Color.Blue.light {
         didSet {
@@ -57,6 +75,12 @@ final class HighlightableRoundedButton: UIButton {
     // MARK: Helper methods
 
     private func updateColors() {
+        if let color = isHighlighted ? highlightedBackgroundStrokeColor : nonhighlightedBackgroundStrokeColor {
+            layer.borderColor = color.cgColor
+        }
+        else {
+            layer.borderColor = nil
+        }
         backgroundColor = isHighlighted ? highlightedBackgroundColor : nonhighlightedBackgroundColor
         let titleColor = isHighlighted ? highlightedTitleColor : nonhighlightedTitleColor
         setTitleColor(titleColor, for: .normal)

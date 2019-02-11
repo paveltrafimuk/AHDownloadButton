@@ -65,13 +65,31 @@ public final class AHDownloadButton: UIView {
             startDownloadButton.highlightedBackgroundColor = startDownloadButtonHighlightedBackgroundColor
         }
     }
+
+    public var startDownloadButtonHighlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            startDownloadButton.highlightedBackgroundStrokeColor = startDownloadButtonHighlightedBackgroundStrokeColor
+        }
+    }
     
+    public var startDownloadButtonBackgroundStrokeWidth: CGFloat = 0.0 {
+        didSet {
+            startDownloadButton.strokeWidth = startDownloadButtonBackgroundStrokeWidth
+        }
+    }
+
     public var startDownloadButtonNonhighlightedBackgroundColor: UIColor = Color.Gray.medium {
         didSet {
             startDownloadButton.nonhighlightedBackgroundColor = startDownloadButtonNonhighlightedBackgroundColor
         }
     }
-    
+
+    public var startDownloadButtonNonhighlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            startDownloadButton.nonhighlightedBackgroundStrokeColor = startDownloadButtonNonhighlightedBackgroundStrokeColor
+        }
+    }
+
     public var startDownloadButtonHighlightedTitleColor: UIColor = Color.Blue.light {
         didSet {
             startDownloadButton.highlightedTitleColor = startDownloadButtonHighlightedTitleColor
@@ -169,13 +187,31 @@ public final class AHDownloadButton: UIView {
             downloadedButton.highlightedBackgroundColor = downloadedButtonHighlightedBackgroundColor
         }
     }
+
+    public var downloadedButtonHighlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            downloadedButton.highlightedBackgroundStrokeColor = downloadedButtonHighlightedBackgroundStrokeColor
+        }
+    }
     
+    public var downloadedButtonBackgroundStrokeWidth: CGFloat = 0.0 {
+        didSet {
+            downloadedButton.strokeWidth = downloadedButtonBackgroundStrokeWidth
+        }
+    }
+
     public var downloadedButtonNonhighlightedBackgroundColor: UIColor = Color.Gray.medium {
         didSet {
             downloadedButton.nonhighlightedBackgroundColor = downloadedButtonNonhighlightedBackgroundColor
         }
     }
-    
+
+    public var downloadedButtonNonhighlightedBackgroundStrokeColor: UIColor? {
+        didSet {
+            downloadedButton.nonhighlightedBackgroundStrokeColor = downloadedButtonNonhighlightedBackgroundStrokeColor
+        }
+    }
+
     public var downloadedButtonHighlightedTitleColor: UIColor = Color.Blue.light {
         didSet {
             downloadedButton.highlightedTitleColor = downloadedButtonHighlightedTitleColor
@@ -261,6 +297,14 @@ public final class AHDownloadButton: UIView {
     var downloadedButtonWidthConstraint: NSLayoutConstraint!
     var horizontalAlignmentAttribute: NSLayoutConstraint.Attribute {
         return contentHorizontalAlignment.relativeLayoutAttribute
+    }
+    
+    public var automaticallySizeToFitTitle: Bool = true {
+        didSet {
+            startDownloadButtonTitleWidth = 0
+            downloadedButtonTitleWidth = 0
+            setNeedsLayout()
+        }
     }
     
     var startDownloadButtonTitleWidth: CGFloat = 0 {
@@ -414,12 +458,18 @@ public final class AHDownloadButton: UIView {
         pendingViewWidthConstraint.constant = width
         downloadingButtonWidthConstraint.constant = width
         
-        if startDownloadButtonTitleWidth == 0 {
-            startDownloadButtonTitleWidth = startDownloadButton.titleWidth
+        if automaticallySizeToFitTitle {
+            startDownloadButtonTitleWidth = width
+            downloadedButtonTitleWidth = width
         }
-        
-        if downloadedButtonTitleWidth == 0 {
-            downloadedButtonTitleWidth = downloadedButton.titleWidth
+        else {
+            if startDownloadButtonTitleWidth == 0 {
+                startDownloadButtonTitleWidth = startDownloadButton.titleWidth
+            }
+            
+            if downloadedButtonTitleWidth == 0 {
+                downloadedButtonTitleWidth = downloadedButton.titleWidth
+            }
         }
     }
     
